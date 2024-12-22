@@ -2,28 +2,19 @@ import pyautogui
 import cv2
 import numpy as np
 resolution = (1920, 1080)
-# video code
-codec = cv2.VideoWriter_fourcc(*"XVID")
-#  name of Output file
-filename = "Recording.avi"
-# Specify frames rate
-fps = 60.0
-out = cv2.VideoWriter(filename, codec, fps, resolution)
+cd = cv2.VideoWriter_fourcc(*"XVID") # code for video
+filename = "Recording.avi" # output filename
+fps = 60.0 #frames
+out = cv2.VideoWriter(filename, cd, fps, resolution)
 # Create an Empty window
 cv2.namedWindow("Live", cv2.WINDOW_NORMAL)
 cv2.resizeWindow("Live", 480, 270)
 
 while True:
-	# Take screenshot using PyAutoGUI
-	img = pyautogui.screenshot()
-	# Convert the screenshot to a numpy array
-	frame = np.array(img)
-	# Convert it from BGR(Blue, Green, Red) to
-	# RGB(Red, Green, Blue)
+	image = pyautogui.screenshot()
+	frame = np.array(image)
 	frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-	# Write it to the output file
 	out.write(frame)
-	# Optional: Display the recording screen
 	cv2.imshow('Live', frame)	
 	# Stop recording when we press 'q'
 	if cv2.waitKey(1) == ord('q'):
